@@ -20,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\src\Soenneker.GitHub.Client.csproj" />
+      <ProjectReference Include="..\src\Soenneker.Github.Client.csproj" />
     </ItemGroup>
 
 </Project>
