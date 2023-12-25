@@ -8,5 +8,5 @@
 ## Installation
 
 ```
-Install-Package Soenneker.GitHub.Client
+dotnet add package Soenneker.GitHub.Client
 ```
