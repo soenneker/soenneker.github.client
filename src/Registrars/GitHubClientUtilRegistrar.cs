@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Soenneker.GitHub.Client.Abstract;
+using Soenneker.Github.Client.Abstract;
+using Soenneker.Utils.HttpClientCache.Registrar;
 
-namespace Soenneker.GitHub.Client.Registrars;
+namespace Soenneker.Github.Client.Registrars;
 
 /// <summary>
 /// An async thread-safe singleton for Octokit's GitHubClient
@@ -14,6 +15,7 @@ public static class GitHubClientUtilRegistrar
     /// </summary>
     public static void AddGitHubClientUtil(this IServiceCollection services)
     {
+        services.AddHttpClientCache();
         services.TryAddSingleton<IGitHubClientUtil, GitHubClientUtil>();
     }
 }
