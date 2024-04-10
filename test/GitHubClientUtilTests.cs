@@ -1,4 +1,4 @@
-using Soenneker.Github.Client.Abstract;
+using Soenneker.GitHub.Client.Abstract;
 using Soenneker.Tests.FixturedUnit;
 using Xunit;
 using Xunit.Abstractions;

@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Soenneker.Fixtures.Unit;
-using Soenneker.Github.Client.Registrars;
+using Soenneker.GitHub.Client.Registrars;
 using Soenneker.Utils.Test;
 
 namespace Soenneker.GitHub.Client.Tests;
