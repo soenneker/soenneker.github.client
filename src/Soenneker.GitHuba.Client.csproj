@@ -11,8 +11,8 @@
         <Description>An async thread-safe singleton for Octokit's GitHubClient</Description>
         <Version Condition="'$(BUILD_VERSION)' == ''">2.1.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
-        <AssemblyName>Soenneker.Github.Client</AssemblyName>
-        <PackageId>Soenneker.Github.Client</PackageId>
+        <AssemblyName>Soenneker.GitHub.Client</AssemblyName>
+        <PackageId>Soenneker.GitHub.Client</PackageId>
         <PackageTags>github client octokit util c# .net dotnet</PackageTags>
         <Copyright>Copyright © 2023-2024 Jake Soenneker</Copyright>
         <Authors>Jake Soenneker</Authors>

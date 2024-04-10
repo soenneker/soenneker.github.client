@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Octokit;
 
-namespace Soenneker.Github.Client.Abstract;
+namespace Soenneker.GitHub.Client.Abstract;
 
 /// <summary>
 /// An async thread-safe singleton for Octokit's GitHubClient
