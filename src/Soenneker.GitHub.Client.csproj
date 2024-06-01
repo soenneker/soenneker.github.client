@@ -42,7 +42,7 @@
       <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
       <PackageReference Include="Octokit" Version="11.0.1" />
       <PackageReference Include="Soenneker.Extensions.Configuration" Version="2.1.311" />
-      <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="2.1.273" />
+      <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="2.1.275" />
       <PackageReference Include="Soenneker.Utils.HttpClientCache" Version="2.1.500" />
     </ItemGroup>
 </Project>
