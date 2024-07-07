@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -37,14 +38,14 @@ public class GitHubClientUtil : IGitHubClientUtil
         });
     }
 
-    public ValueTask<GitHubClient> Get()
+    public ValueTask<GitHubClient> Get(CancellationToken cancellationToken = default)
     {
-        return _client.Get();
+        return _client.Get(cancellationToken);
     }
 
-    public ValueTask<HttpClient> GetHttpClient()
+    public ValueTask<HttpClient> GetHttpClient(CancellationToken cancellationToken = default)
     {
-        return _httpClientCache.Get(nameof(GitHubClientUtil));
+        return _httpClientCache.Get(nameof(GitHubClientUtil), cancellationToken: cancellationToken);
     }
 
     public async ValueTask DisposeAsync()

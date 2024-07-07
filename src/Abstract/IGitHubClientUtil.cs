@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Octokit;
 
@@ -10,7 +11,7 @@ namespace Soenneker.GitHub.Client.Abstract;
 /// </summary>
 public interface IGitHubClientUtil : IDisposable, IAsyncDisposable
 {
-    ValueTask<GitHubClient> Get();
+    ValueTask<GitHubClient> Get(CancellationToken cancellationToken = default);
 
-    ValueTask<HttpClient> GetHttpClient();
+    ValueTask<HttpClient> GetHttpClient(CancellationToken cancellationToken = default);
 }
