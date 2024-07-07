@@ -23,7 +23,7 @@ public class GitHubClientUtil : IGitHubClientUtil
     {
         _httpClientCache = httpClientCache;
 
-        _client = new AsyncSingleton<GitHubClient>(() =>
+        _client = new AsyncSingleton<GitHubClient>((cancellationToken, objects) =>
         {
             var username = config.GetValueStrict<string>("GitHub:Username");
             var token = config.GetValueStrict<string>("GitHub:Token");
