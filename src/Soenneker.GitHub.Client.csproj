@@ -43,6 +43,6 @@
       <PackageReference Include="Octokit" Version="13.0.1" />
       <PackageReference Include="Soenneker.Extensions.Configuration" Version="2.1.384" />
       <PackageReference Include="Soenneker.Utils.AsyncSingleton" Version="2.1.345" />
-      <PackageReference Include="Soenneker.Utils.HttpClientCache" Version="2.1.700" />
+      <PackageReference Include="Soenneker.Utils.HttpClientCache" Version="2.1.702" />
     </ItemGroup>
 </Project>
