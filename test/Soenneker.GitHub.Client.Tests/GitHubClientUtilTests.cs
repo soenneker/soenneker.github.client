@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 using FluentAssertions;
+using Octokit;
 using Soenneker.Facts.Local;
 
 namespace Soenneker.GitHub.Client.Tests;
@@ -22,7 +23,7 @@ public class GitHubClientUtilTests : FixturedUnitTest
     [LocalFact]
     public async Task Get_should_get()
     {
-        var client = await _util.Get(CancellationToken.None);
+        GitHubClient client = await _util.Get();
         client.Should().NotBeNull();
        
     }

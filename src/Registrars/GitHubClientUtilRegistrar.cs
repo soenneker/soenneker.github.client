@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Soenneker.GitHub.Client.Abstract;
-using Soenneker.Utils.HttpClientCache.Registrar;
 
 namespace Soenneker.GitHub.Client.Registrars;
 
@@ -13,9 +12,8 @@ public static class GitHubClientUtilRegistrar
     /// <summary>
     /// Adds the <see cref="IGitHubClientUtil"/> to the <see cref="IServiceCollection"/> as a singleton
     /// </summary>
-    public static void AddGitHubClientUtil(this IServiceCollection services)
+    public static void AddGitHubClientUtilAsSingleton(this IServiceCollection services)
     {
-        services.AddHttpClientCache();
         services.TryAddSingleton<IGitHubClientUtil, GitHubClientUtil>();
     }
 }

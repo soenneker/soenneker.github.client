@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -9,20 +8,16 @@ using Soenneker.Extensions.Configuration;
 using Soenneker.Extensions.ValueTask;
 using Soenneker.GitHub.Client.Abstract;
 using Soenneker.Utils.AsyncSingleton;
-using Soenneker.Utils.HttpClientCache.Abstract;
 
 namespace Soenneker.GitHub.Client;
 
 ///<inheritdoc cref="IGitHubClientUtil"/>
 public class GitHubClientUtil : IGitHubClientUtil
 {
-    private readonly IHttpClientCache _httpClientCache;
     private readonly AsyncSingleton<GitHubClient> _client;
 
-    public GitHubClientUtil(ILogger<GitHubClientUtil> logger, IHttpClientCache httpClientCache, IConfiguration config)
+    public GitHubClientUtil(ILogger<GitHubClientUtil> logger, IConfiguration config)
     {
-        _httpClientCache = httpClientCache;
-
         _client = new AsyncSingleton<GitHubClient>(() =>
         {
             var username = config.GetValueStrict<string>("GitHub:Username");
@@ -43,17 +38,11 @@ public class GitHubClientUtil : IGitHubClientUtil
         return _client.Get(cancellationToken);
     }
 
-    public ValueTask<HttpClient> GetHttpClient(CancellationToken cancellationToken = default)
-    {
-        return _httpClientCache.Get(nameof(GitHubClientUtil), cancellationToken: cancellationToken);
-    }
-
     public async ValueTask DisposeAsync()
     {
         GC.SuppressFinalize(this);
 
         await _client.DisposeAsync().NoSync();
-        await _httpClientCache.Remove(nameof(GitHubClientUtil)).NoSync();
     }
 
     public void Dispose()
@@ -61,6 +50,5 @@ public class GitHubClientUtil : IGitHubClientUtil
         GC.SuppressFinalize(this);
 
         _client.Dispose();
-        _httpClientCache.RemoveSync(nameof(GitHubClientUtil));
     }
 }
