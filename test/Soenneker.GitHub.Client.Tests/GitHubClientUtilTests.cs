@@ -3,7 +3,7 @@ using Soenneker.GitHub.Client.Abstract;
 using Soenneker.Tests.FixturedUnit;
 using System.Threading.Tasks;
 using Xunit;
-using Xunit.Abstractions;
+
 using FluentAssertions;
 using Octokit;
 using Soenneker.Facts.Local;
