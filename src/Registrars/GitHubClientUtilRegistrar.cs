@@ -16,4 +16,9 @@ public static class GitHubClientUtilRegistrar
     {
         services.TryAddSingleton<IGitHubClientUtil, GitHubClientUtil>();
     }
+
+    public static void AddGitHubClientUtilAsScoped(this IServiceCollection services)
+    {
+        services.TryAddScoped<IGitHubClientUtil, GitHubClientUtil>();
+    }
 }

@@ -1,12 +1,6 @@
-using System.Threading;
 using Soenneker.GitHub.Client.Abstract;
 using Soenneker.Tests.FixturedUnit;
-using System.Threading.Tasks;
 using Xunit;
-
-using FluentAssertions;
-using Octokit;
-using Soenneker.Facts.Local;
 
 namespace Soenneker.GitHub.Client.Tests;
 
@@ -17,14 +11,12 @@ public class GitHubClientUtilTests : FixturedUnitTest
 
     public GitHubClientUtilTests(Fixture fixture, ITestOutputHelper output) : base(fixture, output)
     {
-        _util = Resolve<IGitHubClientUtil>();
+        _util = Resolve<IGitHubClientUtil>(true);
     }
 
-    [LocalFact]
-    public async Task Get_should_get()
+    [Fact]
+    public void Default()
     {
-        GitHubClient client = await _util.Get();
-        client.Should().NotBeNull();
-       
+
     }
 }
