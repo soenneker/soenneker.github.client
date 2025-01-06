@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using FluentAssertions;
+using Octokit;
 using Soenneker.GitHub.Client.Abstract;
 using Soenneker.Tests.FixturedUnit;
 using Xunit;
@@ -19,14 +20,28 @@ public class GitHubClientUtilTests : FixturedUnitTest
     [Fact]
     public async ValueTask Get_should_get_client()
     {
-        var client = await _util.Get("blah");
+        GitHubClient client = await _util.Get("blah", CancellationToken);
+        client.Should().NotBeNull();
+    }
+
+    [Fact]
+    public async ValueTask Get_should_get_client_with_null()
+    {
+        GitHubClient client = await _util.Get(null!, CancellationToken);
+        client.Should().NotBeNull();
+    }
+
+    [Fact]
+    public async ValueTask Get_should_get_client_with_empty()
+    {
+        GitHubClient client = await _util.Get("", CancellationToken);
         client.Should().NotBeNull();
     }
 
     [Fact]
     public async ValueTask Get_should_get_client_without_token()
     {
-        var client = await _util.Get();
+        GitHubClient client = await _util.Get(CancellationToken);
         client.Should().NotBeNull();
     }
 }
