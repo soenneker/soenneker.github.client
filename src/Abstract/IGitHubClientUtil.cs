@@ -10,5 +10,7 @@ namespace Soenneker.GitHub.Client.Abstract;
 /// </summary>
 public interface IGitHubClientUtil : IDisposable, IAsyncDisposable
 {
+    ValueTask<GitHubClient> Get(string token, CancellationToken cancellationToken = default);
+
     ValueTask<GitHubClient> Get(CancellationToken cancellationToken = default);
 }

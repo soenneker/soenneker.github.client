@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using FluentAssertions;
 using Soenneker.GitHub.Client.Abstract;
 using Soenneker.Tests.FixturedUnit;
 using Xunit;
@@ -15,8 +17,16 @@ public class GitHubClientUtilTests : FixturedUnitTest
     }
 
     [Fact]
-    public void Default()
+    public async ValueTask Get_should_get_client()
     {
+        var client = await _util.Get("blah");
+        client.Should().NotBeNull();
+    }
 
+    [Fact]
+    public async ValueTask Get_should_get_client_without_token()
+    {
+        var client = await _util.Get();
+        client.Should().NotBeNull();
     }
 }
