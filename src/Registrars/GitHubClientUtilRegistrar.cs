@@ -12,13 +12,17 @@ public static class GitHubClientUtilRegistrar
     /// <summary>
     /// Adds the <see cref="IGitHubClientUtil"/> to the <see cref="IServiceCollection"/> as a singleton
     /// </summary>
-    public static void AddGitHubClientUtilAsSingleton(this IServiceCollection services)
+    public static IServiceCollection AddGitHubClientUtilAsSingleton(this IServiceCollection services)
     {
         services.TryAddSingleton<IGitHubClientUtil, GitHubClientUtil>();
+
+        return services;
     }
 
-    public static void AddGitHubClientUtilAsScoped(this IServiceCollection services)
+    public static IServiceCollection AddGitHubClientUtilAsScoped(this IServiceCollection services)
     {
         services.TryAddScoped<IGitHubClientUtil, GitHubClientUtil>();
+
+        return services;
     }
 }
