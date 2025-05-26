@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using FluentAssertions;
+using AwesomeAssertions;
 using Octokit;
 using Soenneker.GitHub.Client.Abstract;
 using Soenneker.Tests.FixturedUnit;
