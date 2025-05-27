@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Octokit;
 using Soenneker.Extensions.Configuration;
 using Soenneker.Extensions.String;
-using Soenneker.Extensions.ValueTask;
 using Soenneker.GitHub.Client.Abstract;
 using Soenneker.Utils.AsyncSingleton;
 
@@ -27,7 +26,7 @@ public class GitHubClientUtil : IGitHubClientUtil
                 token = (string) objects[0];
 
             if (token.IsNullOrEmpty())
-                token = config.GetValueStrict<string>("GitHub:Token");
+                token = config.GetValueStrict<string>("GH:Token");
 
             logger.LogInformation("Connecting to GitHub...");
 
@@ -49,11 +48,11 @@ public class GitHubClientUtil : IGitHubClientUtil
         return _client.Get(cancellationToken);
     }
 
-    public async ValueTask DisposeAsync()
+    public ValueTask DisposeAsync()
     {
         GC.SuppressFinalize(this);
 
-        await _client.DisposeAsync().NoSync();
+        return _client.DisposeAsync();
     }
 
     public void Dispose()
