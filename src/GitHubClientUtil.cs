@@ -12,7 +12,7 @@ using Soenneker.Utils.AsyncSingleton;
 namespace Soenneker.GitHub.Client;
 
 ///<inheritdoc cref="IGitHubClientUtil"/>
-public class GitHubClientUtil : IGitHubClientUtil
+public sealed class GitHubClientUtil : IGitHubClientUtil
 {
     private readonly AsyncSingleton<GitHubClient> _client;
 
@@ -50,15 +50,11 @@ public class GitHubClientUtil : IGitHubClientUtil
 
     public ValueTask DisposeAsync()
     {
-        GC.SuppressFinalize(this);
-
         return _client.DisposeAsync();
     }
 
     public void Dispose()
     {
-        GC.SuppressFinalize(this);
-
         _client.Dispose();
     }
 }
