@@ -14,17 +14,12 @@ namespace Soenneker.GitHub.Client;
 ///<inheritdoc cref="IGitHubClientUtil"/>
 public sealed class GitHubClientUtil : IGitHubClientUtil
 {
-    private readonly AsyncSingleton<GitHubClient> _client;
+    private readonly AsyncSingleton<GitHubClient, string> _client;
 
     public GitHubClientUtil(ILogger<GitHubClientUtil> logger, IConfiguration config)
     {
-        _client = new AsyncSingleton<GitHubClient>(objects =>
+        _client = new AsyncSingleton<GitHubClient, string>((_, token) =>
         {
-            string? token = null;
-
-            if (objects.Length > 0)
-                token = (string) objects[0];
-
             if (token.IsNullOrEmpty())
                 token = config.GetValueStrict<string>("GH:Token");
 
@@ -39,14 +34,10 @@ public sealed class GitHubClientUtil : IGitHubClientUtil
     }
 
     public ValueTask<GitHubClient> Get(string token, CancellationToken cancellationToken = default)
-    {
-        return _client.Get(cancellationToken, token);
-    }
+        => _client.Get(token, cancellationToken);
 
     public ValueTask<GitHubClient> Get(CancellationToken cancellationToken = default)
-    {
-        return _client.Get(cancellationToken);
-    }
+        => _client.Get(string.Empty, cancellationToken);
 
     public ValueTask DisposeAsync()
     {
