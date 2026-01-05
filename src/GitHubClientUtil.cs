@@ -15,22 +15,28 @@ namespace Soenneker.GitHub.Client;
 public sealed class GitHubClientUtil : IGitHubClientUtil
 {
     private readonly AsyncSingleton<GitHubClient, string> _client;
+    private readonly ILogger<GitHubClientUtil> _logger;
+    private readonly IConfiguration _config;
 
     public GitHubClientUtil(ILogger<GitHubClientUtil> logger, IConfiguration config)
     {
-        _client = new AsyncSingleton<GitHubClient, string>((_, token) =>
-        {
-            if (token.IsNullOrEmpty())
-                token = config.GetValueStrict<string>("GH:Token");
+        _logger = logger;
+        _config = config;
+        _client = new AsyncSingleton<GitHubClient, string>(CreateClient);
+    }
 
-            logger.LogInformation("Connecting to GitHub...");
+    private GitHubClient CreateClient(CancellationToken _, string token)
+    {
+        if (token.IsNullOrEmpty())
+            token = _config.GetValueStrict<string>("GH:Token");
 
-            var client = new GitHubClient(new ProductHeaderValue(nameof(GitHubClientUtil)));
+        _logger.LogInformation("Connecting to GitHub...");
 
-            var basicAuth = new Credentials(token);
-            client.Credentials = basicAuth;
-            return client;
-        });
+        var client = new GitHubClient(new ProductHeaderValue(nameof(GitHubClientUtil)));
+
+        var basicAuth = new Credentials(token);
+        client.Credentials = basicAuth;
+        return client;
     }
 
     public ValueTask<GitHubClient> Get(string token, CancellationToken cancellationToken = default)
