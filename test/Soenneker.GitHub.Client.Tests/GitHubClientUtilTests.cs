@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using AwesomeAssertions;
 using Octokit;
@@ -17,30 +18,30 @@ public class GitHubClientUtilTests : HostedUnitTest
     }
 
     [Test]
-    public async ValueTask Get_should_get_client()
+    public async ValueTask Get_should_get_client(CancellationToken cancellationToken)
     {
-        GitHubClient client = await _util.Get("blah", CancellationToken);
+        GitHubClient client = await _util.Get("blah", cancellationToken);
         client.Should().NotBeNull();
     }
 
     [Test]
-    public async ValueTask Get_should_get_client_with_null()
+    public async ValueTask Get_should_get_client_with_null(CancellationToken cancellationToken)
     {
-        GitHubClient client = await _util.Get(null!, CancellationToken);
+        GitHubClient client = await _util.Get(null!, cancellationToken);
         client.Should().NotBeNull();
     }
 
     [Test]
-    public async ValueTask Get_should_get_client_with_empty()
+    public async ValueTask Get_should_get_client_with_empty(CancellationToken cancellationToken)
     {
-        GitHubClient client = await _util.Get("", CancellationToken);
+        GitHubClient client = await _util.Get("", cancellationToken);
         client.Should().NotBeNull();
     }
 
     [Test]
-    public async ValueTask Get_should_get_client_without_token()
+    public async ValueTask Get_should_get_client_without_token(CancellationToken cancellationToken)
     {
-        GitHubClient client = await _util.Get(CancellationToken);
+        GitHubClient client = await _util.Get(cancellationToken);
         client.Should().NotBeNull();
     }
 }
