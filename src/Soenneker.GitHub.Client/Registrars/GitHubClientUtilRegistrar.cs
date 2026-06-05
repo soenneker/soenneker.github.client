@@ -19,6 +19,11 @@ public static class GitHubClientUtilRegistrar
         return services;
     }
 
+    /// <summary>
+    /// Adds git hub client util as scoped.
+    /// </summary>
+    /// <param name="services">The service collection.</param>
+    /// <returns>The result of the operation.</returns>
     public static IServiceCollection AddGitHubClientUtilAsScoped(this IServiceCollection services)
     {
         services.TryAddScoped<IGitHubClientUtil, GitHubClientUtil>();

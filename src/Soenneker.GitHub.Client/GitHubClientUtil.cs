@@ -45,11 +45,18 @@ public sealed class GitHubClientUtil : IGitHubClientUtil
     public ValueTask<GitHubClient> Get(CancellationToken cancellationToken = default)
         => _client.Get(string.Empty, cancellationToken);
 
+    /// <summary>
+    /// Asynchronously releases resources used by the current instance.
+    /// </summary>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     public ValueTask DisposeAsync()
     {
         return _client.DisposeAsync();
     }
 
+    /// <summary>
+    /// Releases resources used by the current instance.
+    /// </summary>
     public void Dispose()
     {
         _client.Dispose();
