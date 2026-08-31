@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -7,14 +8,12 @@ using Octokit;
 using Soenneker.Extensions.Configuration;
 using Soenneker.Extensions.String;
 using Soenneker.GitHub.Client.Abstract;
-using Soenneker.Utils.AsyncSingleton;
 
 namespace Soenneker.GitHub.Client;
 
-///<inheritdoc cref="IGitHubClientUtil"/>
 public sealed class GitHubClientUtil : IGitHubClientUtil
 {
-    private readonly AsyncSingleton<GitHubClient, string> _client;
+    private readonly ConcurrentDictionary<string, GitHubClient> _clients = new(StringComparer.Ordinal);
     private readonly ILogger<GitHubClientUtil> _logger;
     private readonly IConfiguration _config;
 
@@ -22,14 +21,10 @@ public sealed class GitHubClientUtil : IGitHubClientUtil
     {
         _logger = logger;
         _config = config;
-        _client = new AsyncSingleton<GitHubClient, string>(CreateClient);
     }
 
-    private GitHubClient CreateClient(CancellationToken _, string token)
+    private GitHubClient CreateClient(string token)
     {
-        if (token.IsNullOrEmpty())
-            token = _config.GetValueStrict<string>("GH:Token");
-
         _logger.LogInformation("Connecting to GitHub...");
 
         var client = new GitHubClient(new ProductHeaderValue(nameof(GitHubClientUtil)));
@@ -40,25 +35,26 @@ public sealed class GitHubClientUtil : IGitHubClientUtil
     }
 
     public ValueTask<GitHubClient> Get(string token, CancellationToken cancellationToken = default)
-        => _client.Get(token, cancellationToken);
-
-    public ValueTask<GitHubClient> Get(CancellationToken cancellationToken = default)
-        => _client.Get(string.Empty, cancellationToken);
-
-    /// <summary>
-    /// Asynchronously releases resources used by the current instance.
-    /// </summary>
-    /// <returns>A task that represents the asynchronous operation.</returns>
-    public ValueTask DisposeAsync()
     {
-        return _client.DisposeAsync();
+        cancellationToken.ThrowIfCancellationRequested();
+
+        if (token.IsNullOrEmpty())
+            token = _config.GetValueStrict<string>("GH:Token");
+
+        return ValueTask.FromResult(_clients.GetOrAdd(token, CreateClient));
     }
 
-    /// <summary>
-    /// Releases resources used by the current instance.
-    /// </summary>
+    public ValueTask<GitHubClient> Get(CancellationToken cancellationToken = default)
+        => Get(string.Empty, cancellationToken);
+
+    public ValueTask DisposeAsync()
+    {
+        _clients.Clear();
+        return ValueTask.CompletedTask;
+    }
+
     public void Dispose()
     {
-        _client.Dispose();
+        _clients.Clear();
     }
 }

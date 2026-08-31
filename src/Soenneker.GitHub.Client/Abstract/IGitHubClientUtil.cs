@@ -6,22 +6,22 @@ using Octokit;
 namespace Soenneker.GitHub.Client.Abstract;
 
 /// <summary>
-/// An async thread-safe singleton for Octokit's GitHubClient
+/// Provides cached Octokit clients keyed by GitHub token.
 /// </summary>
 public interface IGitHubClientUtil : IDisposable, IAsyncDisposable
 {
     /// <summary>
-    /// Gets the value.
+    /// Gets the cached client for an explicit GitHub token.
     /// </summary>
-    /// <param name="token">The token.</param>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task containing the result of the operation.</returns>
+    /// <param name="token">The GitHub token used by the returned client.</param>
+    /// <param name="cancellationToken">Token used to cancel retrieval.</param>
+    /// <returns>The client associated with <paramref name="token"/>.</returns>
     ValueTask<GitHubClient> Get(string token, CancellationToken cancellationToken = default);
 
     /// <summary>
-    /// Gets the value.
+    /// Gets the cached client using the configured <c>GH:Token</c> value.
     /// </summary>
-    /// <param name="cancellationToken">The cancellation token.</param>
-    /// <returns>A task containing the result of the operation.</returns>
+    /// <param name="cancellationToken">Token used to cancel retrieval.</param>
+    /// <returns>The client associated with the configured token.</returns>
     ValueTask<GitHubClient> Get(CancellationToken cancellationToken = default);
 }
