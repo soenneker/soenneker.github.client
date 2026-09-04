@@ -11,6 +11,7 @@ using Soenneker.GitHub.Client.Abstract;
 
 namespace Soenneker.GitHub.Client;
 
+/// <inheritdoc cref="IGitHubClientUtil" />
 public sealed class GitHubClientUtil : IGitHubClientUtil
 {
     private readonly ConcurrentDictionary<string, GitHubClient> _clients = new(StringComparer.Ordinal);
