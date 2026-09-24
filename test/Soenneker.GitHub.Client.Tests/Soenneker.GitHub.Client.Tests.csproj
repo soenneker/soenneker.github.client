@@ -27,4 +27,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\Soenneker.GitHub.Client\Soenneker.GitHub.Client.csproj" />
     </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="AwesomeAssertions" Version="9.6.0" />
+    </ItemGroup>
 </Project>
