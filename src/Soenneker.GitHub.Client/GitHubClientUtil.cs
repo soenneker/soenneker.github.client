@@ -40,7 +40,7 @@ public sealed class GitHubClientUtil : IGitHubClientUtil
         cancellationToken.ThrowIfCancellationRequested();
 
         if (token.IsNullOrEmpty())
-            token = _config.GetValueStrict<string>("GH:Token");
+            token = _config.GetStringStrict("GH:Token");
 
         return ValueTask.FromResult(_clients.GetOrAdd(token, static (key, instance) => instance.CreateClient(key), this));
     }
