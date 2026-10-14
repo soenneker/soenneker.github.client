@@ -6,12 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Octokit;
 using Soenneker.Extensions.Configuration;
-using Soenneker.Extensions.String;
 using Soenneker.GitHub.Client.Abstract;
 
 namespace Soenneker.GitHub.Client;
 
-/// <inheritdoc cref="IGitHubClientUtil" />
 public sealed class GitHubClientUtil : IGitHubClientUtil
 {
     private readonly ConcurrentDictionary<string, GitHubClient> _clients = new(StringComparer.Ordinal);
@@ -39,7 +37,7 @@ public sealed class GitHubClientUtil : IGitHubClientUtil
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        if (token.IsNullOrEmpty())
+        if (string.IsNullOrEmpty(token))
             token = _config.GetStringStrict("GH:Token");
 
         return ValueTask.FromResult(_clients.GetOrAdd(token, static (key, instance) => instance.CreateClient(key), this));
