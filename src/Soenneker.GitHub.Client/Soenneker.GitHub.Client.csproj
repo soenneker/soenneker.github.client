@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?><Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
+        <TargetFramework>net11.0</TargetFramework>
         <IsAotCompatible>true</IsAotCompatible>
         <Nullable>enable</Nullable>
         <Platforms>AnyCPU</Platforms>
@@ -10,7 +10,7 @@
 
     <PropertyGroup>
         <Description>Provides cached Octokit GitHub clients with per-token credential isolation.</Description>
-        <Version Condition="'$(BUILD_VERSION)' == ''">4.0.0</Version>
+        <Version Condition="'$(BUILD_VERSION)' == ''">11.0.0</Version>
         <Version Condition="'$(BUILD_VERSION)' != ''">$(BUILD_VERSION)</Version>
         <AssemblyName>Soenneker.GitHub.Client</AssemblyName>
         <PackageId>Soenneker.GitHub.Client</PackageId>
@@ -44,6 +44,6 @@
     
     <ItemGroup>
 <PackageReference Include="Octokit" Version="14.0.0" />
-      <PackageReference Include="Soenneker.Extensions.Configuration" Version="4.0.912" />
+      <PackageReference Include="Soenneker.Extensions.Configuration" Version="11.0.913" />
     </ItemGroup>
 </Project>
