@@ -45,6 +45,6 @@
     
     <ItemGroup>
 <PackageReference Include="Octokit" Version="14.0.0" />
-      <PackageReference Include="Soenneker.Extensions.Configuration" Version="11.0.914" />
+      <PackageReference Include="Soenneker.Extensions.Configuration" Version="11.0.915" />
     </ItemGroup>
 </Project>
